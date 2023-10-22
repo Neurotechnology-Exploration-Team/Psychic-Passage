@@ -88,7 +88,7 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 
-        public void Update()
+        public void LateUpdate()
         {
             if(rightClick)
 			{

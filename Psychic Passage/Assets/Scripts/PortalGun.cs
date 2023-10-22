@@ -38,6 +38,9 @@ public class PortalGun : MonoBehaviour
 
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
+            if (hit.transform.tag != "Portalable")
+                return;
+
             if(portalType == "orange")
             {
                 orangePortal.transform.SetPositionAndRotation(hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
