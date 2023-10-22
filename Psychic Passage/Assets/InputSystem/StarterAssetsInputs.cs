@@ -12,6 +12,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool rightClick;
+		public bool leftClick;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -43,10 +45,20 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnRightClick(InputValue value)
+		{
+			rightClick = value.isPressed;
+		}
+
+        public void OnLeftClick(InputValue value)
+        {
+            leftClick = value.isPressed;
+        }
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -75,6 +87,19 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
-	}
+
+        public void Update()
+        {
+            if(rightClick)
+			{
+				rightClick = false;
+			}
+
+            if (leftClick)
+            {
+                leftClick = false;
+            }
+        }
+    }
 	
 }
