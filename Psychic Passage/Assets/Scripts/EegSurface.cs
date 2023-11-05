@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EegSurface : MonoBehaviour
 {
+    public bool hasPortal;
+
     private Renderer myRenderer;
 
     private EegManager eegManager;
@@ -29,6 +31,9 @@ public class EegSurface : MonoBehaviour
                 break;
         }
 
-        myRenderer.material = eegManager.GroupMaterial(flashingGroup);
+        if (!hasPortal)
+        {
+            myRenderer.material = eegManager.GroupMaterial(flashingGroup);
+        }
     }
 }
