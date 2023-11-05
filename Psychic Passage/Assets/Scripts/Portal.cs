@@ -9,13 +9,14 @@ public class Portal : MonoBehaviour
     private bool shouldTeleport = false;
 
     private float teleportDelay = 0;
+    private GameObject objToTeleport = null;
 
     // Update is called once per frame
     void LateUpdate()
     {
         if(shouldTeleport)
         {
-            player.transform.position = otherPortal.transform.position;
+            objToTeleport.transform.position = otherPortal.transform.position;
             shouldTeleport = false;
         }
 
@@ -31,6 +32,15 @@ public class Portal : MonoBehaviour
         if (other.gameObject.layer == 8 && teleportDelay <= 0) 
         {
             shouldTeleport = true;
+            objToTeleport = player;
+            otherPortal.GetComponentInChildren<Portal>().teleportDelay = 0.5f;
+        }
+
+        //Pickup Layer
+        if (other.gameObject.layer == 6 && teleportDelay <= 0)
+        {
+            shouldTeleport = true;
+            objToTeleport = other.gameObject;
             otherPortal.GetComponentInChildren<Portal>().teleportDelay = 0.5f;
         }
 
