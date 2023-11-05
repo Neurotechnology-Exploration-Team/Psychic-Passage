@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool rightClick;
 		public bool leftClick;
+		public bool interact;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -54,6 +55,11 @@ namespace StarterAssets
         public void OnLeftClick(InputValue value)
         {
             leftClick = value.isPressed;
+        }
+
+		public void OnInteract(InputValue value)
+        {
+            interact = value.isPressed;
         }
 #endif
 
@@ -98,6 +104,10 @@ namespace StarterAssets
             if (leftClick)
             {
                 leftClick = false;
+            }
+			if (interact)
+			{
+                interact = false;
             }
         }
     }
