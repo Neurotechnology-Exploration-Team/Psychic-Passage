@@ -10,7 +10,7 @@ public class PhysicPickup : MonoBehaviour
     [SerializeField] private Transform pickupTarget;
 
     [SerializeField] private float pickupRange;
-    private Rigidbody currentObject;
+    public Rigidbody currentObject;
 
     private StarterAssetsInputs _input;
 

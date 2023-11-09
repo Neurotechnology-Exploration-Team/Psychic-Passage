@@ -6,17 +6,27 @@ public class Portal : MonoBehaviour
 {
     [SerializeField] GameObject otherPortal;
     [SerializeField] GameObject player;
+    public GameObject teleportPoint;
     private bool shouldTeleport = false;
 
     private float teleportDelay = 0;
     private GameObject objToTeleport = null;
+
+    private PhysicPickup physicPickup = null;
+    private Portal otherPortalScript = null;
+
+    private void Start()
+    {
+        physicPickup = player.GetComponent<PhysicPickup>();
+        otherPortalScript = otherPortal.GetComponentInChildren<Portal>();
+    }
 
     // Update is called once per frame
     void LateUpdate()
     {
         if(shouldTeleport)
         {
-            objToTeleport.transform.position = otherPortal.transform.position;
+            objToTeleport.transform.position = otherPortalScript.teleportPoint.transform.position;
             shouldTeleport = false;
         }
 
@@ -33,7 +43,15 @@ public class Portal : MonoBehaviour
         {
             shouldTeleport = true;
             objToTeleport = player;
-            otherPortal.GetComponentInChildren<Portal>().teleportDelay = 0.5f;
+            otherPortalScript.teleportDelay = 0.5f;
+
+            if (physicPickup.currentObject != null)
+            {
+                physicPickup.currentObject.useGravity = true;
+                physicPickup.currentObject = null;
+            }
+
+            Debug.Log(other);
         }
 
         //Pickup Layer
@@ -41,9 +59,13 @@ public class Portal : MonoBehaviour
         {
             shouldTeleport = true;
             objToTeleport = other.gameObject;
-            otherPortal.GetComponentInChildren<Portal>().teleportDelay = 0.5f;
-        }
+            otherPortalScript.teleportDelay = 0.5f;
 
-        Debug.Log("AAA");
+            if(physicPickup.currentObject != null && objToTeleport == physicPickup.currentObject.gameObject)
+            {
+                physicPickup.currentObject.useGravity = true;
+                physicPickup.currentObject = null;
+            }
+        }
     }
 }
